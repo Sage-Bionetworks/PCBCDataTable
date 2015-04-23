@@ -1,4 +1,4 @@
-## PCBC data file table
+## PCBC file table
 
 A searchable table of raw and processed data files for PCBC.
 
