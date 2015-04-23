@@ -2,7 +2,14 @@
 
 A searchable table of raw and processed data files for PCBC.
 
-### Development
+### Running
+
+To run, fork or clone this repository, or:
+
+```
+library(shiny)
+shiny::runGitHub("kdaily/PCBCDataTable")
+```
 
 Requires `shiny 0.11`:
 
