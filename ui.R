@@ -6,19 +6,11 @@
 #
 
 library(shiny)
-shinyApp(
-  ui = fluidPage(
-    DT::dataTableOutput('tbl')
-    ),
-  
-  server = function(input, output) {
-    output$tbl = DT::renderDataTable({
-      DT::datatable(allData, 
-                    options = list(lengthChange = FALSE, pageLength = 10),
-                    escape = 1
-                    )
-    })
-  },
-  
-  
+
+fluidPage(
+  title = 'DataTables Information',
+  fluidRow(
+    column(6, DT::dataTableOutput('tbl'), height=500)
+  )
 )
+
