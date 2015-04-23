@@ -11,6 +11,10 @@ library(shiny)
 shiny::runGitHub("kdaily/PCBCDataTable")
 ```
 
+### Requirements
+
+See http://rstudio.github.io/DT/ for details.
+
 Requires `shiny 0.11`:
 
 ```
@@ -24,4 +28,3 @@ devtools::install_github('ramnathv/htmlwidgets')
 devtools::install_github("rstudio/DT")
 ```
 
-See http://rstudio.github.io/DT/ for details.
