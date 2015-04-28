@@ -9,7 +9,7 @@ synapseLogin()
 colsToUse <- c('id', 'dataType', 'fileType', 'fileSubType', 'UID', 'biologicalSampleName', 
                'C4_Cell_Line_ID', 'Originating_Lab_ID', 'Originating_Lab', 'Cell_Line_Type',
                'Cell_Type_of_Origin', 'Tissue_of_Origin', 'Reprogramming_Vector_Type',
-               'Reprogramming_Gene_Combination')
+               'Reprogramming_Gene_Combination', 'pass_qc', 'exclude')
 
 colsToUseStr <- paste(colsToUse, collapse=",")
 rnaData <- synQuery(sprintf("select %s from file where benefactorId=='syn1773109' and dataType=='%s'", colsToUseStr, 'mRNA'), blockSize=400)$collectAll()
@@ -27,7 +27,7 @@ mrna <- allData %>%
          !(fileType %in% c('matrix', 'genomicMatrix'))) %>% 
   unite(file, fileType, fileSubType, sep="_") %>% 
   mutate(file=str_replace(file, "_NA", "")) %>% 
-  select(UID, biologicalSampleName, file, id) %>%
+  select(UID, biologicalSampleName, pass_qc, exclude, file, id) %>%
   spread(file, id)
 
 mirna <- allData %>% 
@@ -36,7 +36,7 @@ mirna <- allData %>%
          !(fileType %in% c('matrix', 'genomicMatrix'))) %>% 
   unite(file, fileType, fileSubType, sep="_") %>% 
   mutate(file=str_replace(file, "_NA", "")) %>% 
-  select(UID, biologicalSampleName, file, id) %>%
+  select(UID, biologicalSampleName, pass_qc, exclude, file, id) %>%
   spread(file, id)
 
 # methylation <- allData %>% 
