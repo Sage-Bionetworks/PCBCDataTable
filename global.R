@@ -39,11 +39,18 @@ mirna <- allData %>%
   select(UID, biologicalSampleName, pass_qc, exclude, file, id) %>%
   spread(file, id)
 
-# methylation <- allData %>% 
-#   filter(dataType=='methylation') %>%
-#   filter(!is.na(UID), 
-#          !(fileType %in% c('matrix', 'genomicMatrix'))) %>% 
-#   unite(file, fileType, fileSubType, sep="_") %>% 
-#   mutate(file=str_replace(file, "_NA", "")) %>% 
-#   select(UID, biologicalSampleName, file, id) %>%
-#   spread(file, id)
+methylColsToUse <- c(colsToUse, "Channel", "BeadChip")
+methylColsToUseStr <- paste(methylColsToUse, collapse=",")
+
+methylationData <- synQuery(sprintf("select %s from file where benefactorId=='syn1773109' and dataType=='%s'", 
+                                    methylColsToUseStr, 'methylation'), blockSize=400)$collectAll()
+colnames(methylationData) <- gsub(".*\\.", "", colnames(methylationData))
+
+methylation <- methylationData %>% 
+  filter(dataType=='methylation') %>%
+  filter(!is.na(UID), 
+         !(fileType %in% c('matrix', 'genomicMatrix'))) %>% 
+  unite(file, fileType, Channel, sep="_") %>% 
+  mutate(file=str_replace(file, "_NA", "")) %>% 
+  select(UID, biologicalSampleName, BeadChip, pass_qc, exclude, file, id) %>%
+  spread(file, id)

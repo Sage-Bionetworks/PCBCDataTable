@@ -18,7 +18,9 @@ shinyUI(
         tabPanel("mRNA",
                  DT::dataTableOutput('mrna')),
         tabPanel("miRNA",
-                 DT::dataTableOutput('mirna'))
+                 DT::dataTableOutput('mirna')),
+        tabPanel("Methylation",
+                 DT::dataTableOutput('methylation'))
       )
     )
   )

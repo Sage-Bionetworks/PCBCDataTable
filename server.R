@@ -17,6 +17,13 @@ shinyServer(function(input, output) {
                   escape=1)
   })
   
+  output$methylation = DT::renderDataTable({
+    DT::datatable(methylation, 
+                  extensions = c('ColVis'),
+                  options = list(pageLength = 15),
+                  escape=1)
+  })
+  
   output$all = DT::renderDataTable({
     DT::datatable(allData, 
                   extensions = c('ColVis'),
