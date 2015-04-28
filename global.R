@@ -16,3 +16,42 @@ allData <- rbind(rnaData, mirnaData, methylationData)
 colnames(allData) <- gsub(".*\\.", "", colnames(allData))
 allData <- allData[, colsToUse]
 allData$id <- paste('<a href="https://www.synapse.org/#!Synapse:', allData$id, '">', allData$id, '</a>', sep="")
+
+mrna <- allData %>% 
+  filter(dataType=='mRNA') %>%
+  filter(!is.na(UID), 
+         !(fileType %in% c('matrix', 'genomicMatrix'))) %>% 
+  unite(file, fileType, fileSubType, sep="_") %>% 
+  mutate(file=str_replace(file, "_NA", "")) %>% 
+  select(UID, biologicalSampleName, file, id) %>%
+  spread(file, id)
+
+mirna <- allData %>% 
+  filter(dataType=='miRNA') %>%
+  filter(!is.na(UID), 
+         !(fileType %in% c('matrix', 'genomicMatrix'))) %>% 
+  unite(file, fileType, fileSubType, sep="_") %>% 
+  mutate(file=str_replace(file, "_NA", "")) %>% 
+  select(UID, biologicalSampleName, file, id) %>%
+  spread(file, id)
+
+biosample <- allData %>%
+  filter(fileType %in% c("fastq", "idat")) %>% 
+  count(biologicalSampleName, dataType) %>%
+  select(biologicalSampleName, dataType, n) %>%
+  spread(dataType, n)
+
+cellline <- allData %>%
+  filter(fileType %in% c("fastq", "idat"), !is.na(C4_Cell_Line_ID)) %>% 
+  count(C4_Cell_Line_ID, dataType) %>%
+  select(C4_Cell_Line_ID, dataType, n) %>%
+  spread(dataType, n)
+
+# methylation <- allData %>% 
+#   filter(dataType=='methylation') %>%
+#   filter(!is.na(UID), 
+#          !(fileType %in% c('matrix', 'genomicMatrix'))) %>% 
+#   unite(file, fileType, fileSubType, sep="_") %>% 
+#   mutate(file=str_replace(file, "_NA", "")) %>% 
+#   select(UID, biologicalSampleName, file, id) %>%
+#   spread(file, id)

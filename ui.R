@@ -7,10 +7,28 @@
 
 library(shiny)
 
-fluidPage(
-  title = 'DataTables Information',
-  fluidRow(
-    column(6, DT::dataTableOutput('tbl'), height=500)
+shinyUI(
+  fluidPage(
+    title = 'PCBC Data',
+    
+    mainPanel(
+      tabsetPanel(
+        tabPanel("All", 
+                 DT::dataTableOutput('all')),
+        tabPanel("Biological Sample",
+                 DT::dataTableOutput('biosample')),
+        tabPanel("C4 Cell Line",
+                 DT::dataTableOutput('cellline')),
+        tabPanel("mRNA",
+                 DT::dataTableOutput('mrna')),
+        tabPanel("miRNA",
+                 DT::dataTableOutput('mirna'))
+      )
+    )
   )
 )
+
+
+
+
 

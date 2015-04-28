@@ -3,10 +3,39 @@ library(DT)
 
 shinyServer(function(input, output) {
   
-  output$tbl = DT::renderDataTable({
-    DT::datatable(allData, 
+  output$mrna = DT::renderDataTable({
+    DT::datatable(mrna, 
                   extensions = c('ColVis'),
                   options = list(pageLength = 15),
                   escape=1)
     })
+
+  output$mirna = DT::renderDataTable({
+    DT::datatable(mirna, 
+                  extensions = c('ColVis'),
+                  options = list(pageLength = 15),
+                  escape=1)
+  })
+  
+  output$all = DT::renderDataTable({
+    DT::datatable(allData, 
+                  extensions = c('ColVis'),
+                  options = list(pageLength = 15),
+                  escape=1)
+  })
+
+  output$biosample = DT::renderDataTable({
+    DT::datatable(biosample, 
+                  extensions = c('ColVis'),
+                  options = list(pageLength = 15),
+                  escape=1)
+  })
+
+  output$cellline = DT::renderDataTable({
+    DT::datatable(cellline, 
+                  extensions = c('ColVis'),
+                  options = list(pageLength = 15),
+                  escape=1)
+  })
+  
 })
