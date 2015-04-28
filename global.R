@@ -45,6 +45,8 @@ methylColsToUseStr <- paste(methylColsToUse, collapse=",")
 methylationData <- synQuery(sprintf("select %s from file where benefactorId=='syn1773109' and dataType=='%s'", 
                                     methylColsToUseStr, 'methylation'), blockSize=400)$collectAll()
 colnames(methylationData) <- gsub(".*\\.", "", colnames(methylationData))
+methylationData$id <- paste('<a href="https://www.synapse.org/#!Synapse:', 
+                            methylationData$id, '" target="_blank">', methylationData$id, '</a>', sep="")
 
 methylation <- methylationData %>% 
   filter(dataType=='methylation') %>%
