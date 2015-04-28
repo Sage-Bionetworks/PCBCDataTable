@@ -5,29 +5,30 @@ shinyServer(function(input, output) {
   
   output$mrna <- DT::renderDataTable({
     DT::datatable(mrna, 
-                  extensions = c('ColVis'),
-                  options = list(pageLength = 15),
+                  options = list(pageLength = 15,
+                                 dom='frtip'),
                   escape=1)
     })
 
   output$mirna <- DT::renderDataTable({
     DT::datatable(mirna, 
-                  extensions = c('ColVis'),
-                  options = list(pageLength = 15),
+                  options = list(pageLength = 15,
+                                 dom='frtip'),
                   escape=1)
   })
   
   output$methylation <- DT::renderDataTable({
-    DT::datatable(methylation, 
-                  extensions = c('ColVis'),
-                  options = list(pageLength = 15),
+    DT::datatable(methylation,
+                  options = list(pageLength = 15,
+                                 dom='frtip'),
                   escape=1)
   })
   
   output$all <- DT::renderDataTable({
     DT::datatable(allData, 
-                  extensions = c('ColVis'),
-                  options = list(pageLength = 15),
+                  extensions = c('ColReorder', 'ColVis'),
+                  options = list(pageLength = 15,
+                                 dom='C<"clear">Rfrtip'),
                   escape=1)
   })
 
