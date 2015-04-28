@@ -12,9 +12,9 @@ colsToUse <- c('id', 'dataType', 'fileType', 'fileSubType', 'UID', 'biologicalSa
                'Reprogramming_Gene_Combination')
 
 colsToUseStr <- paste(colsToUse, collapse=",")
-rnaData <- synQuery(sprintf("select %s from file where projectId=='syn1773109' and dataType=='%s'", colsToUseStr, 'mRNA'), blockSize=400)$collectAll()
-mirnaData <- synQuery(sprintf("select %s from file where projectId=='syn1773109' and dataType=='%s'", colsToUseStr, 'miRNA'), blockSize=400)$collectAll()
-methylationData <- synQuery(sprintf("select %s from file where projectId=='syn1773109' and dataType=='%s'", colsToUseStr, 'methylation'), blockSize=400)$collectAll()
+rnaData <- synQuery(sprintf("select %s from file where benefactorId=='syn1773109' and dataType=='%s'", colsToUseStr, 'mRNA'), blockSize=400)$collectAll()
+mirnaData <- synQuery(sprintf("select %s from file where benefactorId=='syn1773109' and dataType=='%s'", colsToUseStr, 'miRNA'), blockSize=400)$collectAll()
+methylationData <- synQuery(sprintf("select %s from file where benefactorId=='syn1773109' and dataType=='%s'", colsToUseStr, 'methylation'), blockSize=400)$collectAll()
 
 allData <- rbind(rnaData, mirnaData, methylationData)
 colnames(allData) <- gsub(".*\\.", "", colnames(allData))
