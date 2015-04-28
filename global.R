@@ -19,7 +19,7 @@ methylationData <- synQuery(sprintf("select %s from file where benefactorId=='sy
 allData <- rbind(rnaData, mirnaData, methylationData)
 colnames(allData) <- gsub(".*\\.", "", colnames(allData))
 allData <- allData[, colsToUse]
-allData$id <- paste('<a href="https://www.synapse.org/#!Synapse:', allData$id, '">', allData$id, '</a>', sep="")
+allData$id <- paste('<a href="https://www.synapse.org/#!Synapse:', allData$id, '" target="_blank">', allData$id, '</a>', sep="")
 
 mrna <- allData %>% 
   filter(dataType=='mRNA') %>%
