@@ -24,18 +24,4 @@ shinyServer(function(input, output) {
                   escape=1)
   })
 
-  output$biosample = DT::renderDataTable({
-    DT::datatable(biosample, 
-                  extensions = c('ColVis'),
-                  options = list(pageLength = 15),
-                  escape=1)
-  })
-
-  output$cellline = DT::renderDataTable({
-    DT::datatable(cellline, 
-                  extensions = c('ColVis'),
-                  options = list(pageLength = 15),
-                  escape=1)
-  })
-  
 })

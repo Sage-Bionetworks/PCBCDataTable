@@ -39,18 +39,6 @@ mirna <- allData %>%
   select(UID, biologicalSampleName, file, id) %>%
   spread(file, id)
 
-biosample <- allData %>%
-  filter(fileType %in% c("fastq", "idat")) %>% 
-  count(biologicalSampleName, dataType) %>%
-  select(biologicalSampleName, dataType, n) %>%
-  spread(dataType, n)
-
-cellline <- allData %>%
-  filter(fileType %in% c("fastq", "idat"), !is.na(C4_Cell_Line_ID)) %>% 
-  count(C4_Cell_Line_ID, dataType) %>%
-  select(C4_Cell_Line_ID, dataType, n) %>%
-  spread(dataType, n)
-
 # methylation <- allData %>% 
 #   filter(dataType=='methylation') %>%
 #   filter(!is.na(UID), 

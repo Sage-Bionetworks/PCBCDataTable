@@ -15,10 +15,6 @@ shinyUI(
       tabsetPanel(
         tabPanel("All", 
                  DT::dataTableOutput('all')),
-        tabPanel("Biological Sample",
-                 DT::dataTableOutput('biosample')),
-        tabPanel("C4 Cell Line",
-                 DT::dataTableOutput('cellline')),
         tabPanel("mRNA",
                  DT::dataTableOutput('mrna')),
         tabPanel("miRNA",
