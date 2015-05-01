@@ -4,14 +4,14 @@ library(DT)
 shinyServer(function(input, output) {
   
   output$mrna <- DT::renderDataTable({
-    DT::datatable(mrna, 
+    DT::datatable(mrna2, 
                   options = list(pageLength = 15,
                                  dom='frtip'),
                   escape=1)
     })
 
   output$mirna <- DT::renderDataTable({
-    DT::datatable(mirna, 
+    DT::datatable(mirna2, 
                   options = list(pageLength = 15,
                                  dom='frtip'),
                   escape=1)

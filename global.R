@@ -23,21 +23,37 @@ allData$id <- paste('<a href="https://www.synapse.org/#!Synapse:', allData$id, '
 
 mrna <- allData %>% 
   filter(dataType=='mRNA') %>%
-  filter(!is.na(UID), 
+  filter(!is.na(UID),
+         !is.na(biologicalSampleName),
          !(fileType %in% c('matrix', 'genomicMatrix'))) %>% 
   unite(file, fileType, fileSubType, sep="_") %>% 
   mutate(file=str_replace(file, "_NA", "")) %>% 
   select(UID, biologicalSampleName, pass_qc, exclude, file, id) %>%
   spread(file, id)
 
+mrna2 <- mrna %>%
+  gather(file, id, 5:ncol(mrna)) %>%
+  group_by(UID, biologicalSampleName, pass_qc, exclude) %>%
+  summarize(incomplete=any(is.na(id))) %>%
+  ungroup() %>%
+  left_join(mrna)
+
 mirna <- allData %>% 
   filter(dataType=='miRNA') %>%
   filter(!is.na(UID), 
+         !is.na(biologicalSampleName),
          !(fileType %in% c('matrix', 'genomicMatrix'))) %>% 
   unite(file, fileType, fileSubType, sep="_") %>% 
   mutate(file=str_replace(file, "_NA", "")) %>% 
   select(UID, biologicalSampleName, pass_qc, exclude, file, id) %>%
   spread(file, id)
+
+mirna2 <- mirna %>%
+  gather(file, id, 5:7) %>%
+  group_by(UID, biologicalSampleName, pass_qc, exclude) %>%
+  summarize(incomplete=any(is.na(id))) %>%
+  ungroup() %>%
+  left_join(mirna)
 
 methylColsToUse <- c(colsToUse, "Channel", "BeadChip")
 methylColsToUseStr <- paste(methylColsToUse, collapse=",")
