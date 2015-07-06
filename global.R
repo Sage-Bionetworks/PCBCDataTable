@@ -17,7 +17,7 @@ colsToUseStr <- paste(colsToUse, collapse=",")
 queryTemplate <- "select %s from file where benefactorId=='syn1773109' and dataType=='%s'"
 
 rnaData <- synQuery(sprintf(queryTemplate, colsToUseStr, 'mRNA'), 
-                    blockSize=400)$collectAll()
+                    blockSize=300)$collectAll()
 
 mirnaData <- synQuery(sprintf(queryTemplate, colsToUseStr, 'miRNA'), 
                       blockSize=400)$collectAll()
