@@ -6,16 +6,6 @@ library(synapseClient)
 
 synapseLogin()
 
-# Which columns to consider
-colsToUse <- c('id', 'dataType', 'fileType', 'fileSubType', 'UID', 'biologicalSampleName', 
-               'C4_Cell_Line_ID', 'Originating_Lab_ID', 'Originating_Lab', 'Cell_Line_Type',
-               'Cell_Type_of_Origin', 'Tissue_of_Origin', 'Reprogramming_Vector_Type',
-               'Reprogramming_Gene_Combination', 'pass_qc', 'exclude')
-
-# query the table with specific columns
-colsToUseStr <- paste(colsToUse, collapse=",")
-queryTemplate <- "select %s from file where benefactorId=='syn1773109' and dataType=='%s'"
-
 # cache <- NA
 cache <- "syn5016465"
 
@@ -23,6 +13,16 @@ if (!is.na(cache)) {
   obj <- synGet(cache)
   load(getFileLocation(obj))
 } else {
+  # Which columns to consider
+  colsToUse <- c('id', 'dataType', 'fileType', 'fileSubType', 'UID', 'biologicalSampleName', 
+                 'C4_Cell_Line_ID', 'Originating_Lab_ID', 'Originating_Lab', 'Cell_Line_Type',
+                 'Cell_Type_of_Origin', 'Tissue_of_Origin', 'Reprogramming_Vector_Type',
+                 'Reprogramming_Gene_Combination', 'pass_qc', 'exclude')
+  
+  # query the table with specific columns
+  colsToUseStr <- paste(colsToUse, collapse=",")
+  queryTemplate <- "select %s from file where benefactorId=='syn1773109' and dataType=='%s'"
+  
   rnaData <- synQuery(sprintf(queryTemplate, colsToUseStr, 'mRNA'), 
                       blockSize=300)$collectAll()
   
