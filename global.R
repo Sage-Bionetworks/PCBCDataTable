@@ -16,8 +16,8 @@ colsToUse <- c('id', 'dataType', 'fileType', 'fileSubType', 'UID', 'biologicalSa
 colsToUseStr <- paste(colsToUse, collapse=",")
 queryTemplate <- "select %s from file where benefactorId=='syn1773109' and dataType=='%s'"
 
-cache <- NA
-# cache <- "syn"
+# cache <- NA
+cache <- "syn5016465"
 
 if (!is.na(cache)) {
   obj <- synGet(cache)
