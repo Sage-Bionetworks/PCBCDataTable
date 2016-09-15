@@ -32,11 +32,12 @@ shinyServer(function(input, output) {
   
   output$all <- DT::renderDataTable({
     DT::datatable(allData, 
-                  extensions = c('ColReorder', 'ColVis'),
+                  extensions = c('ColReorder', 'Buttons'),
                   filter = list(position = 'top', clear = FALSE),
                   options = list(pageLength = 15,
                                  dom='C<"clear">Rfrtip',
-                                 search = list(regex = TRUE)),
+                                 search = list(regex = TRUE),
+				 buttons=I('colvis')),
                   escape=1)
   })
 
